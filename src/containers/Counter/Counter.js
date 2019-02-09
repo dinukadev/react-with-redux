@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
-import * as actionTypes from '../../store/actions';
+import * as actionTypes from '../../store/actions/actions';
 
 class Counter extends Component {
 
@@ -17,7 +17,10 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={this.props.onAddCounter}/>
                 <CounterControl label="Subtract 5" clicked={this.props.onSubtractCounter}/>
                 <hr/>
-                <button onClick={()=>{this.props.onStoreResult(this.props.ctr)}}>Store Result</button>
+                <button onClick={() => {
+                    this.props.onStoreResult(this.props.ctr)
+                }}>Store Result
+                </button>
                 <ul>
                     {this.props.storedResults.map(strResult => (
                         <li onClick={() => {
@@ -41,12 +44,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        onAddCounter: () => dispatch({type: actionTypes.ADD, val: 5}),
-        onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 5}),
-        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
-        onDeleteCounter: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultId: id})
+        onIncrementCounter: () => dispatch(actionTypes.increment()),
+        onDecrementCounter: () => dispatch(actionTypes.decrement()),
+        onAddCounter: () => dispatch(actionTypes.add(5)),
+        onSubtractCounter: () => dispatch(actionTypes.subtract(5)),
+        onStoreResult: (result) => dispatch(actionTypes.storeResult(result)),
+        onDeleteCounter: (id) => dispatch(actionTypes.deleteResult(id))
     };
 };
 
