@@ -38,6 +38,14 @@ const reducer = (state = initialState, action) => {
             results: state.results.concat({id: new Date(), value: state.counter})
         }
     }
+
+    if(action.type==="DELETE_RESULT"){
+        const updatedResults = state.results.filter((result,index)=> result.id!==action.resultId);
+        return {
+            ...state,
+            results: updatedResults
+        }
+    }
     return state;
 };
 
